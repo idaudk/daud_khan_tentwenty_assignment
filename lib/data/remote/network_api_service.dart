@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -8,15 +7,14 @@ import 'package:movie_db_app/data/remote/api_exception.dart';
 import 'package:movie_db_app/data/remote/dio_client.dart';
 import '../../data/remote/base_api_service.dart';
 
-
 class NetworkApiService extends BaseApiService {
-
-
   final Dio _dio = Dio();
   late DioClient _dioClient;
+  
 
-  NetworkApiService(){
+  NetworkApiService() {
     _dioClient = DioClient(_dio);
+
   }
 
   // @override
@@ -40,14 +38,13 @@ class NetworkApiService extends BaseApiService {
   // }
 
   @override
-  Future getUpcomingMovies({required int pageNumber}) {
+  Future getUpcomingMovies({required int pageNumber}) async {
     try {
-      final response = _dioClient.get(ApiEndPoints().upcomingMovies, queryParameters: {
-        'page' : pageNumber
-      });
+      final response = await _dioClient.get(ApiEndPoints().upcomingMovies,
+          queryParameters: {'page': pageNumber});
       return returnResponse(response);
-    } catch (e) {
-      if (e is AppException) {
+    } on DioException catch (e) {
+      if (e.response != null) {
         throw FetchDataException(e.toString());
       } else if (e is SocketException) {
         throw FetchDataException("Socket Exception: ${e.toString()}");
@@ -55,10 +52,18 @@ class NetworkApiService extends BaseApiService {
         throw FetchDataException("Something went wrong: ${e.toString()}");
       }
     }
+    // catch (e) {
+    //   if (e is AppException) {
+    //     throw FetchDataException(e.toString());
+    //   } else if (e is SocketException) {
+    //     throw FetchDataException("Socket Exception: ${e.toString()}");
+    //   } else {
+    //     throw FetchDataException("Something went wrong: ${e.toString()}");
+    //   }
+    // }
   }
 
-
-  dynamic returnResponse(response) {
+  dynamic returnResponse(Response response) {
     switch (response.statusCode) {
       case 200:
         final responseJson = response.data;

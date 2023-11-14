@@ -117,9 +117,9 @@ ThemeData getApplicationTheme() {
       primaryColorLight: ColorManager.primaryOpacity70,
       scaffoldBackgroundColor: ColorManager.white,
       primaryColorDark: ColorManager.primaryDark,
-      disabledColor: ColorManager.grey1,
+      // disabledColor: ColorManager.grey1,
       // ripple color
-      splashColor: ColorManager.taggle,
+      splashColor: ColorManager.lightGrey,
       // will be used incase of disabled button for example
       // card view theme
       cardTheme: CardTheme(
@@ -135,22 +135,22 @@ ThemeData getApplicationTheme() {
           titleTextStyle: getRegularStyle(
               color: ColorManager.white, fontSize: FontSize.s16)),
       // Button theme
-      buttonTheme: ButtonThemeData(
-          shape: const StadiumBorder(),
-          disabledColor: ColorManager.grey1,
+      buttonTheme: const ButtonThemeData(
+          shape: StadiumBorder(),
+          disabledColor: ColorManager.lightGrey,
           buttonColor: ColorManager.primary,
-          splashColor: ColorManager.primaryOpacity70),
+          splashColor: ColorManager.grey),
 
       // elevated button theme
 
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              backgroundColor: ColorManager.cyan,
+              backgroundColor: ColorManager.primary,
               disabledForegroundColor: ColorManager.white,
-              disabledBackgroundColor: ColorManager.taggleWithOpacity05,
+              disabledBackgroundColor: ColorManager.lightGrey,
               foregroundColor: Colors.white,
               textStyle: getMediumStyle(
-                  fontSize: AppSize.s16.sp, color: ColorManager.red),
+                  fontSize: AppSize.s16.sp, color: ColorManager.text),
               padding: EdgeInsets.symmetric(
                   vertical: AppSize.s16.h, horizontal: AppSize.s20),
               shape: RoundedRectangleBorder(
@@ -164,16 +164,15 @@ ThemeData getApplicationTheme() {
 
       // Text theme
       textTheme: TextTheme(
-        displayLarge:
-            getBoldStyle(color: ColorManager.primaryDark, fontSize: 60.sp),
+        displayLarge: getBoldStyle(color: ColorManager.text, fontSize: 60.sp),
         displayMedium: getRegularStyle(
-          color: ColorManager.primaryDark,
+          color: ColorManager.text,
           fontSize: FontSize.s36.sp,
         ),
         displaySmall: getRegularStyle(
             color: ColorManager.primary, fontSize: FontSize.s12.sp),
-        headlineMedium: getSemiBoldStyle(
-            color: ColorManager.text, fontSize: FontSize.s20.sp),
+        headlineMedium:
+            getMediumStyle(color: ColorManager.text, fontSize: FontSize.s20.sp),
         headlineLarge: getSemiBoldStyle(
             color: ColorManager.text, fontSize: FontSize.s28.sp),
         headlineSmall:
@@ -188,8 +187,8 @@ ThemeData getApplicationTheme() {
             color: ColorManager.text, fontSize: FontSize.s16.sp),
         bodySmall:
             getRegularStyle(color: ColorManager.text, fontSize: AppSize.s12.sp),
-        bodyLarge: getRegularStyle(
-            color: ColorManager.text, fontSize: FontSize.s22.sp),
+        bodyLarge:
+            getMediumStyle(color: ColorManager.text, fontSize: FontSize.s19.sp),
         labelMedium:
             getRegularStyle(color: ColorManager.text, fontSize: AppSize.s12.sp),
       ),
@@ -206,7 +205,7 @@ ThemeData getApplicationTheme() {
             getRegularStyle(color: ColorManager.hint, fontSize: AppSize.s14.sp),
 
         // label style
-        labelStyle: getMediumStyle(color: ColorManager.darkGrey),
+        labelStyle: getMediumStyle(color: ColorManager.text),
         // error style
         errorStyle: getRegularStyle(color: ColorManager.error),
 

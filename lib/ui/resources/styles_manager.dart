@@ -45,5 +45,5 @@ TextStyle getSemiBoldStyle(
 TextStyle getMediumStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.semiBold, color);
+      fontSize, FontConstants.fontFamily, FontWeightManager.medium, color);
 }

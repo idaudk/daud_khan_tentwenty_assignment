@@ -7,5 +7,5 @@ class ApiEndPoints {
   static const int connectionTimeout = 15000;
 
 
-  final String upcomingMovies = "upcoming";
+  final String upcomingMovies = "/upcoming";
 }

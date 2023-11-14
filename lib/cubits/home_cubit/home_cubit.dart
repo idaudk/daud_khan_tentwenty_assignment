@@ -14,13 +14,25 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getMovies({required int pageNumber}) async {
-    print('get movies');
+    // ignore: avoid_print
+    print('called');
     emit(HomeLoading());
-    await moviesRepoImpl
-        .getUpcomingMovies(pageNumber: pageNumber)
-        .onError((error, stackTrace) => emit(HomeFailed()))
-        .then((value) {
-      print(value);
+    final response =
+        await moviesRepoImpl.getUpcomingMovies(pageNumber: pageNumber);
+        print(response);
+    response.fold((l) {
+      emit(HomeFailed());
+    }, (r) {
+      emit(HomeLoaded(upcomingMovies: r));
     });
+
+    // try {
+    //   final response =
+    //       await moviesRepoImpl.getUpcomingMovies(pageNumber: pageNumber);
+    //   print(response);
+    //   emit(HomeLoaded(upcomingMovies: response));
+    // } catch (e) {
+    //   emit(HomeFailed());
+    // }
   }
 }
