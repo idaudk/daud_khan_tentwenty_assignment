@@ -154,7 +154,7 @@ ThemeData getApplicationTheme() {
               padding: EdgeInsets.symmetric(
                   vertical: AppSize.s16.h, horizontal: AppSize.s20),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.s50)))),
+                  borderRadius: BorderRadius.circular(AppSize.s10)))),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
             foregroundColor: ColorManager.yellow,
@@ -186,7 +186,7 @@ ThemeData getApplicationTheme() {
         bodyMedium: getRegularStyle(
             color: ColorManager.text, fontSize: FontSize.s16.sp),
         bodySmall:
-            getRegularStyle(color: ColorManager.text, fontSize: AppSize.s12.sp),
+            getRegularStyle(color: ColorManager.grey, fontSize: AppSize.s12.sp),
         bodyLarge:
             getMediumStyle(color: ColorManager.text, fontSize: FontSize.s19.sp),
         labelMedium:

@@ -13,6 +13,7 @@ class ColorManager {
   static const Color pink = Color(0xFFe26ca5);
   static const Color purple = Color(0xFF564ca3);
   static const Color yellow = Color(0xFFcd9d0f);
+  static const Color black = Color.fromARGB(255, 0, 0, 0);
 
 
 //OTHERS

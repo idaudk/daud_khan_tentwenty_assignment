@@ -10,32 +10,10 @@ import '../../data/remote/base_api_service.dart';
 class NetworkApiService extends BaseApiService {
   final Dio _dio = Dio();
   late DioClient _dioClient;
-  
 
   NetworkApiService() {
     _dioClient = DioClient(_dio);
-
   }
-
-  // @override
-  // Future<List<LoginModel>> loginResponse(
-  //     String url, String email, String password) async {
-  //   try {
-  //     // var testUrl = Uri.http(baseUrl, url);
-  //     var uri = Uri.parse(
-  //         'https://jsonplaceholder.typicode.com/users'); //TODO will add base URL here
-  //     final response = await http.get(uri);
-  //     return responseJson(response);
-  //   } catch (e) {
-  //     if (e is AppException) {
-  //       throw FetchDataException(e.toString());
-  //     } else if (e is SocketException) {
-  //       throw FetchDataException("Socket Exception: ${e.toString()}");
-  //     } else {
-  //       throw FetchDataException("Something went wrong: ${e.toString()}");
-  //     }
-  //   }
-  // }
 
   @override
   Future getUpcomingMovies({required int pageNumber}) async {
@@ -52,15 +30,25 @@ class NetworkApiService extends BaseApiService {
         throw FetchDataException("Something went wrong: ${e.toString()}");
       }
     }
-    // catch (e) {
-    //   if (e is AppException) {
-    //     throw FetchDataException(e.toString());
-    //   } else if (e is SocketException) {
-    //     throw FetchDataException("Socket Exception: ${e.toString()}");
-    //   } else {
-    //     throw FetchDataException("Something went wrong: ${e.toString()}");
-    //   }
-    // }
+  }
+
+  @override
+  Future getMovieDetail({required int movieId}) async {
+    try {
+      print('${ApiEndPoints().movieDetail}/$movieId');
+      final response = await _dioClient.get(
+        '/${ApiEndPoints().movieDetail}/$movieId',
+      );
+      return returnResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw FetchDataException(e.toString());
+      } else if (e is SocketException) {
+        throw FetchDataException("Socket Exception: ${e.toString()}");
+      } else {
+        throw FetchDataException("Something went wrong: ${e.toString()}");
+      }
+    }
   }
 
   dynamic returnResponse(Response response) {

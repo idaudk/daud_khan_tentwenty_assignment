@@ -10,9 +10,10 @@ sealed class HomeState extends Equatable {
 final class HomeInitial extends HomeState {}
 final class HomeLoading extends HomeState {}
 final class HomeLoaded extends HomeState {
-  UpComingMovies upcomingMovies;
+  List<Results> upcomingMovies;
   HomeLoaded({required this.upcomingMovies});
 }
+final class HomeLoadingMore extends HomeState {}
 final class HomeFailed extends HomeState {
   HomeFailed();
 }
