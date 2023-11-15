@@ -44,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final movie = state.upcomingMovies[index];
                       return MovieBanner(
+                        movieId: movie.id!,
                         title: movie.title.toString(),
                         imageLink: BaseApiService.imageBaseUrl +
                             movie.posterPath.toString(),
@@ -66,9 +67,11 @@ class HomeScreen extends StatelessWidget {
 class MovieBanner extends StatelessWidget {
   String title;
   String imageLink;
+  int movieId;
   MovieBanner({
     required this.imageLink,
     required this.title,
+    required this.movieId,
     super.key,
   });
 
@@ -83,7 +86,7 @@ class MovieBanner extends StatelessWidget {
       child: InkWell(
         splashColor: ColorManager.transparent,
         onTap: () {
-          Navigator.pushNamed(context, Routes.movieDetail);
+          Navigator.pushNamed(context, Routes.movieDetail, arguments: movieId);
         },
         child: Stack(
           fit: StackFit.expand,

@@ -1,29 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_db_app/cubits/movie_deatil_cubits/movie_details_cubit.dart';
+import 'package:movie_db_app/cubits/trailer_cubit/trailer_cubit.dart';
 import 'package:movie_db_app/ui/home/home_screen.dart';
 import 'package:movie_db_app/ui/movie_detail/movie_detail_screen.dart';
 
 class Routes {
   static const String home = "/";
   static const String movieDetail = "/movie-detail";
+  static const String trailer = "/trailer";
 }
 
 class RouteGenerator {
   Route<dynamic> generateRoute(RouteSettings routeSettings) {
-    // final args = routeSettings.arguments;
+    final args = routeSettings.arguments;
 
     switch (routeSettings.name) {
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       case Routes.movieDetail:
+        final movieId = args as int;
         return MaterialPageRoute(
           builder: (_) => BlocProvider<MovieDetailsCubit>.value(
-            value: MovieDetailsCubit(),
-            child: const MovieDetailScreen(),
+            value: MovieDetailsCubit(movieId: movieId),
+            child: MovieDetailScreen(),
           ),
         );
+
+      case Routes.trailer:
+        final movieId = args as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<TrailerCubit>.value(
+            value: TrailerCubit(movieId: movieId),
+            child: MovieDetailScreen(),
+          ),
+        );  
 
       default:
         return _errorRoute();

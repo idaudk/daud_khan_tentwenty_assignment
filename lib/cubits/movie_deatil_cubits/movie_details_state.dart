@@ -8,9 +8,14 @@ sealed class MovieDetailsState extends Equatable {
 }
 
 final class MovieDetailsInitial extends MovieDetailsState {}
+
 final class MovieDetailsLoading extends MovieDetailsState {}
+
 final class MovieDetailsLoaded extends MovieDetailsState {
   MovieDetail movieDetail;
-  MovieDetailsLoaded({required this.movieDetail});
+  MovieImages movieImages;
+  MovieTrailer movieTrailer;
+  MovieDetailsLoaded({required this.movieDetail, required this.movieImages, required this.movieTrailer});
 }
+
 final class MovieDetailsFailed extends MovieDetailsState {}
