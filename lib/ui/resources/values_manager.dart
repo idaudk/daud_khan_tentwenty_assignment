@@ -2,6 +2,7 @@ import 'package:movie_db_app/ui/resources/resources.dart';
 
 class AppSize {
   static const double simpleAppBarheight = 70;
+  static const double searchAppBarheight = 90;
   static const double s0 = 0;
 
   static const double s05 = 0.5;
@@ -53,6 +54,7 @@ class AppSize {
   static const double s85 = 85.0;
   static const double s90 = 90.0;
   static const double s100 = 100.0;
+  static const double s110 = 110.0;
   static const double s120 = 120.0;
   static const double s125 = 125.0;
   static const double s130 = 130.0;

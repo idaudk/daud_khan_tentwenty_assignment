@@ -9,4 +9,6 @@ abstract class BaseApiService {
   Future<dynamic> getMovieDetail({required int movieId});
   Future<dynamic> getMovieImages({required int movieId});
   Future<dynamic> getMovieTrailer({required int movieId});
+  Future<dynamic> search({required String keyword});
+  Future<dynamic> getAllGenre();
 }

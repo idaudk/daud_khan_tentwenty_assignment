@@ -89,6 +89,46 @@ class NetworkApiService extends BaseApiService {
     }
   }
 
+  @override
+  Future getAllGenre() async {
+    try {
+      final response = await _dioClient.get(
+        ApiEndPoints().genre,
+      );
+      return returnResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw FetchDataException(e.toString());
+      } else if (e is SocketException) {
+        throw FetchDataException("Socket Exception: ${e.toString()}");
+      } else {
+        throw FetchDataException("Something went wrong: ${e.toString()}");
+      }
+    }
+  }
+
+  @override
+  Future search({required String keyword}) async {
+    try {
+      
+      final response = await _dioClient.get(
+        ApiEndPoints().searchMovies,
+        queryParameters: {
+          'query' : keyword
+        }
+      );
+      return returnResponse(response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw FetchDataException(e.toString());
+      } else if (e is SocketException) {
+        throw FetchDataException("Socket Exception: ${e.toString()}");
+      } else {
+        throw FetchDataException("Something went wrong: ${e.toString()}");
+      }
+    }
+  }
+
   dynamic returnResponse(Response response) {
     switch (response.statusCode) {
       case 200:
@@ -104,4 +144,6 @@ class NetworkApiService extends BaseApiService {
             'Error occurred with status code : ${response.statusCode}');
     }
   }
+  
+  
 }

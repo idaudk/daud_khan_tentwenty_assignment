@@ -7,4 +7,6 @@ class ApiEndPoints {
 
   final String upcomingMovies = "/movie/upcoming";
   final String movieDetail = "movie";
+  final String searchMovies = "/search/movie";
+  final String genre = "/genre/movie/list";
 }

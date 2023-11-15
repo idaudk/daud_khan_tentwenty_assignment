@@ -9,6 +9,8 @@ class ColorManager {
   static const Color almostWhite = Color(0xFFf6f6fa);
   static const Color grey = Color(0xFF827d88);
   static const Color lightGrey = Color(0xFFdbdbdf);
+  static const Color textformBg = Color(0xFFf2f2f6);
+  static const Color pageBg = Color(0xFFf6f6fa);
   static const Color aqua = Color(0xFF15d2bc);
   static const Color pink = Color(0xFFe26ca5);
   static const Color purple = Color(0xFF564ca3);

@@ -122,7 +122,7 @@ ThemeData getApplicationTheme() {
       splashColor: ColorManager.lightGrey,
       // will be used incase of disabled button for example
       // card view theme
-      cardTheme: CardTheme(
+      cardTheme: const CardTheme(
           color: ColorManager.white,
           shadowColor: ColorManager.grey,
           elevation: AppSize.s4),
@@ -196,9 +196,14 @@ ThemeData getApplicationTheme() {
       // input decoration theme (text form field)
 
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: const EdgeInsets.all(AppSize.s8),
-        fillColor: ColorManager.white,
-        focusColor: ColorManager.white,
+        
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: AppSize.s8, vertical: AppSize.s0.h),
+        fillColor: ColorManager.textformBg,
+        focusColor: ColorManager.textformBg,
+        hoverColor: ColorManager.textformBg,
+
+        
 
         // hint style
         hintStyle:
@@ -210,10 +215,10 @@ ThemeData getApplicationTheme() {
         errorStyle: getRegularStyle(color: ColorManager.error),
 
         // enabled border
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.transparent, width: AppSize.s0),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s50))),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s50))),
 
         // focused border
         focusedBorder: const OutlineInputBorder(
@@ -222,10 +227,10 @@ ThemeData getApplicationTheme() {
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s50))),
 
         // error border
-        errorBorder: OutlineInputBorder(
+        errorBorder: const OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.transparent, width: AppSize.s0),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s50))),
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.s50))),
         // focused error border
         focusedErrorBorder: const OutlineInputBorder(
             borderSide:

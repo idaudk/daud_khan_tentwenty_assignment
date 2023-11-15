@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_db_app/routes/route_generator.dart';
 import 'package:movie_db_app/ui/resources/color_manager.dart';
 import 'package:movie_db_app/ui/resources/resources.dart';
 import 'package:movie_db_app/ui/resources/values_manager.dart';
@@ -54,7 +56,11 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
             'Watch',
             style: context.textTheme.headlineMedium,
           ),
-          Icon(CupertinoIcons.search),
+          InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.liveSearch);
+              },
+              child: Icon(CupertinoIcons.search)),
         ],
       ),
     );
