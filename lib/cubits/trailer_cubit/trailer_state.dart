@@ -8,9 +8,15 @@ sealed class TrailerState extends Equatable {
 }
 
 final class TrailerInitial extends TrailerState {}
+
 final class TrailerLoading extends TrailerState {}
+
 final class TrailerLoaded extends TrailerState {
-  String url;
-  TrailerLoaded({required this.url});
+  YoutubePlayerController youtubePlayerController;
+  TrailerLoaded({required this.youtubePlayerController});
+  // VideoPlayerController videoPlayerController;
+  // TrailerLoaded({required this.videoPlayerController});
 }
 final class TrailerFailed extends TrailerState {}
+// final class TrailerPlaying extends TrailerState {}
+// final class TrailerFinished extends TrailerState {}

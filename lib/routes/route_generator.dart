@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_db_app/cubits/movie_deatil_cubits/movie_details_cubit.dart';
+import 'package:movie_db_app/cubits/movie_deatil_cubit/movie_details_cubit.dart';
 import 'package:movie_db_app/cubits/trailer_cubit/trailer_cubit.dart';
 import 'package:movie_db_app/ui/home/home_screen.dart';
 import 'package:movie_db_app/ui/movie_detail/movie_detail_screen.dart';
+import 'package:movie_db_app/ui/trailer/trailer_screen.dart';
 
 class Routes {
   static const String home = "/";
@@ -33,9 +34,9 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider<TrailerCubit>.value(
             value: TrailerCubit(movieId: movieId),
-            child: MovieDetailScreen(),
+            child: TrailerScreen(),
           ),
-        );  
+        );
 
       default:
         return _errorRoute();

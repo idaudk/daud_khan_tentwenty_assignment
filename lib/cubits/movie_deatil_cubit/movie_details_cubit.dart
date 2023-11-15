@@ -28,16 +28,16 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
         //ERROR
         emit(MovieDetailsFailed());
       }, (movieImagesResponse) async {
-        final movieTrailer =
-            await _moviesRepoImpl.getMovieTrailer(movieId: movieId);
-        movieTrailer.fold((l) {
-          emit(MovieDetailsFailed());
-        }, (movieTrailerResponse) {
-          emit(MovieDetailsLoaded(
-              movieTrailer: movieTrailerResponse,
-              movieDetail: movieDetailResponse,
-              movieImages: movieImagesResponse));
-        });
+        emit(MovieDetailsLoaded(
+            movieDetail: movieDetailResponse,
+            movieImages: movieImagesResponse));
+        // final movieTrailer =
+        //     await _moviesRepoImpl.getMovieTrailer(movieId: movieId);
+        // movieTrailer.fold((l) {
+        //   emit(MovieDetailsFailed());
+        // }, (movieTrailerResponse) {
+
+        // });
       });
     });
   }

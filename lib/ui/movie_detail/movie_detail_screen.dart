@@ -2,16 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:movie_db_app/cubits/movie_deatil_cubits/movie_details_cubit.dart';
+import 'package:movie_db_app/cubits/movie_deatil_cubit/movie_details_cubit.dart';
 import 'package:movie_db_app/data/remote/base_api_service.dart';
 import 'package:movie_db_app/routes/route_generator.dart';
 import 'package:movie_db_app/ui/movie_detail/components/back_appbar.dart';
 import 'package:movie_db_app/ui/resources/resources.dart';
 import 'package:movie_db_app/ui/widgets/gap/gap.dart';
 import 'package:movie_db_app/ui/widgets/image/custom_image.dart';
-import 'package:video_player/video_player.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   MovieDetailScreen({super.key});
@@ -26,7 +26,11 @@ class MovieDetailScreen extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext _) {
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       backgroundColor: ColorManager.almostWhite,
       body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
@@ -232,7 +236,10 @@ class MovieDetailScreen extends StatelessWidget {
                         Text(
                           movieDetail.overview.toString(),
                           style: context.textTheme.bodySmall,
-                        )
+                        ),
+                        SizedBox(
+                          height: AppSize.s15.h,
+                        ),
                       ],
                     ),
                   ),
@@ -247,5 +254,3 @@ class MovieDetailScreen extends StatelessWidget {
     );
   }
 }
-
-
