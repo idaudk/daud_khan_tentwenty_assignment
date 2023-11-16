@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_db_app/cubits/movie_deatil_cubit/movie_details_cubit.dart';
+import 'package:movie_db_app/data/models/movie_detail_model.dart';
+import 'package:movie_db_app/data/models/movies_images_model.dart';
 import 'package:movie_db_app/data/remote/base_api_service.dart';
 import 'package:movie_db_app/routes/route_generator.dart';
 import 'package:movie_db_app/ui/movie_detail/components/back_appbar.dart';
@@ -13,9 +15,14 @@ import 'package:movie_db_app/ui/resources/resources.dart';
 import 'package:movie_db_app/ui/widgets/gap/gap.dart';
 import 'package:movie_db_app/ui/widgets/image/custom_image.dart';
 
-class MovieDetailScreen extends StatelessWidget {
+class MovieDetailScreen extends StatefulWidget {
   MovieDetailScreen({super.key});
 
+  @override
+  State<MovieDetailScreen> createState() => _MovieDetailScreenState();
+}
+
+class _MovieDetailScreenState extends State<MovieDetailScreen> {
   List<Color> predefinedColors = [
     ColorManager.aqua,
     ColorManager.pink,
@@ -26,11 +33,28 @@ class MovieDetailScreen extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // Lock the orientation to landscape
     SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.almostWhite,
       body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
@@ -71,189 +95,206 @@ class MovieDetailScreen extends StatelessWidget {
           } else if (state is MovieDetailsLoaded) {
             final movieDetail = state.movieDetail;
             final movieImages = state.movieImages;
-            return Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Stack(
-                    children: [
-                      CustomImage(
-                          width: double.maxFinite,
-                          height: double.infinity,
-                          fit: BoxFit.cover,
-                          imageUrl: BaseApiService.imageBaseUrl +
-                              movieImages.backdrops![0].filePath.toString()),
-                      Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(0, 0, 0, 0),
-                                Color.fromARGB(200, 0, 0, 0),
-                              ],
-                              begin: FractionalOffset(0.0, 0.5),
-                              end: FractionalOffset(0.0, 1.0),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: ScreenUtil().statusBarHeight + 20.h,
-                            left: 24,
-                            right: 24),
-                        child: Column(
-                          children: [
-                            BackAppBar(),
-                            const Expanded(child: SizedBox()),
-                            CustomImage(
-                                loaderHeight: 0,
-                                loaderWidth: 0,
-                                height: AppSize.s35.h,
-                                imageUrl: BaseApiService.imageBaseUrl +
-                                    movieImages.logos![0].filePath.toString()),
-                            SizedBox(
-                              height: AppSize.s15.h,
-                            ),
-                            Text(
-                              'In Theaters ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(movieDetail.releaseDate.toString()))}',
-                              style: context.textTheme.titleMedium!.copyWith(
-                                color: ColorManager.white,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Gap(AppSize.s10.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppSize.s40.w),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, Routes.tickets);
-                                        },
-                                        child: const Text('Get Tickets')),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Gap(AppSize.s10.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppSize.s40.w),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton.icon(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, Routes.trailer,
-                                            arguments: state.movieDetail.id);
-                                      },
-                                      icon:
-                                          const Icon(Icons.play_arrow_rounded),
-                                      label: const Text('Watch tralier'),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors
-                                            .transparent, // Background color
-                                        elevation: 0, // No shadow
-                                        side: const BorderSide(
-                                            color: Colors.blue,
-                                            width: 1), // Border color and width
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Gap(AppSize.s30.h),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: ColorManager.white,
-                    child: ListView(
-                      padding: EdgeInsets.only(
-                          left: AppSize.s30.w,
-                          right: AppSize.s30.w,
-                          top: AppSize.s30.h),
+            return OrientationBuilder(builder: (context, ori) {
+              return ori == Orientation.landscape
+                  ? Row(
                       children: [
-                        Text(
-                          'Genres',
-                          style: context.textTheme.headlineMedium!
-                              .copyWith(fontSize: FontSize.s18.sp),
-                        ),
-                        SizedBox(
-                          height: AppSize.s15.h,
-                        ),
-                        SizedBox(
-                          height: AppSize.s35.h,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: movieDetail.genres?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              final genre = movieDetail.genres![index];
-                              // Get a random index for the color list
-                              int randomIndex =
-                                  Random().nextInt(predefinedColors.length);
-                              Color randomColor = predefinedColors[randomIndex];
-                              return Container(
-                                margin: EdgeInsets.only(right: AppSize.s5.w),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppSize.s10.w,
-                                    vertical: AppSize.s2.h),
-                                decoration: BoxDecoration(
-                                    color: randomColor,
-                                    borderRadius:
-                                        BorderRadius.circular(AppSize.s20.r)),
-                                child: Text(
-                                  genre.name.toString(),
-                                  style: context.textTheme.titleSmall!.copyWith(
-                                    color: ColorManager.white,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Divider(
-                          height: AppSize.s50.h,
-                          thickness: 0.5,
-                          color: ColorManager.black.withOpacity(0.1),
-                        ),
-                        Text(
-                          'Overview',
-                          style: context.textTheme.headlineMedium!
-                              .copyWith(fontSize: FontSize.s18.sp),
-                        ),
-                        SizedBox(
-                          height: AppSize.s15.h,
-                        ),
-                        Text(
-                          movieDetail.overview.toString(),
-                          style: context.textTheme.bodySmall,
-                        ),
-                        SizedBox(
-                          height: AppSize.s15.h,
-                        ),
+                        MovieTitleInfo(
+                            context: context,
+                            movieDetail: movieDetail,
+                            movieImages: movieImages),
+                        MovieOverview(
+                            context: context, movieDetail: movieDetail)
                       ],
-                    ),
-                  ),
-                )
-              ],
-            );
+                    )
+                  : Column(
+                      children: [
+                        MovieTitleInfo(
+                            context: context,
+                            movieDetail: movieDetail,
+                            movieImages: movieImages),
+                        MovieOverview(
+                            context: context, movieDetail: movieDetail)
+                      ],
+                    );
+            });
           } else {
             return const SizedBox.shrink();
           }
         },
+      ),
+    );
+  }
+
+  Widget MovieTitleInfo(
+      {required BuildContext context,
+      required MovieImages movieImages,
+      required MovieDetail movieDetail}) {
+    return Expanded(
+      flex: 3,
+      child: Stack(
+        children: [
+          CustomImage(
+              width: double.maxFinite,
+              height: double.infinity,
+              fit: BoxFit.cover,
+              imageUrl: BaseApiService.imageBaseUrl +
+                  movieImages.backdrops![0].filePath.toString()),
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(0, 0, 0, 0),
+                    Color.fromARGB(200, 0, 0, 0),
+                  ],
+                  begin: FractionalOffset(0.0, 0.5),
+                  end: FractionalOffset(0.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: ScreenUtil().statusBarHeight + 20.h, left: 24, right: 24),
+            child: Column(
+              children: [
+                BackAppBar(),
+                const Expanded(child: SizedBox()),
+                CustomImage(
+                    loaderHeight: 0,
+                    loaderWidth: 0,
+                    height: AppSize.s35.h,
+                    imageUrl: BaseApiService.imageBaseUrl +
+                        movieImages.logos![0].filePath.toString()),
+                SizedBox(
+                  height: AppSize.s15.h,
+                ),
+                Text(
+                  'In Theaters ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(movieDetail.releaseDate.toString()))}',
+                  style: context.textTheme.titleMedium!.copyWith(
+                    color: ColorManager.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Gap(AppSize.s10.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSize.s40.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.tickets);
+                            },
+                            child: const Text('Get Tickets')),
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(AppSize.s10.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSize.s40.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.trailer,
+                                // arguments: state.movieDetail.id
+                                arguments: movieDetail.id);
+                          },
+                          icon: const Icon(Icons.play_arrow_rounded),
+                          label: const Text('Watch tralier'),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.transparent, // Background color
+                            elevation: 0, // No shadow
+                            side: const BorderSide(
+                                color: Colors.blue,
+                                width: 1), // Border color and width
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(AppSize.s30.h),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget MovieOverview(
+      {required BuildContext context, required MovieDetail movieDetail}) {
+    return Expanded(
+      flex: 2,
+      child: Container(
+        color: ColorManager.white,
+        child: ListView(
+          padding: EdgeInsets.only(
+              left: AppSize.s30.w, right: AppSize.s30.w, top: AppSize.s30.h),
+          children: [
+            Text(
+              'Genres',
+              style: context.textTheme.headlineMedium!
+                  .copyWith(fontSize: FontSize.s18.sp),
+            ),
+            SizedBox(
+              height: AppSize.s15.h,
+            ),
+            SizedBox(
+              height: AppSize.s35.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: movieDetail.genres?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final genre = movieDetail.genres![index];
+                  // Get a random index for the color list
+                  int randomIndex = Random().nextInt(predefinedColors.length);
+                  Color randomColor = predefinedColors[randomIndex];
+                  return Container(
+                    margin: EdgeInsets.only(right: AppSize.s5.w),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppSize.s10.w, vertical: AppSize.s2.h),
+                    decoration: BoxDecoration(
+                        color: randomColor,
+                        borderRadius: BorderRadius.circular(AppSize.s20.r)),
+                    child: Text(
+                      genre.name.toString(),
+                      style: context.textTheme.titleSmall!.copyWith(
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Divider(
+              height: AppSize.s50.h,
+              thickness: 0.5,
+              color: ColorManager.black.withOpacity(0.1),
+            ),
+            Text(
+              'Overview',
+              style: context.textTheme.headlineMedium!
+                  .copyWith(fontSize: FontSize.s18.sp),
+            ),
+            SizedBox(
+              height: AppSize.s15.h,
+            ),
+            Text(
+              movieDetail.overview.toString(),
+              style: context.textTheme.bodySmall,
+            ),
+            SizedBox(
+              height: AppSize.s15.h,
+            ),
+          ],
+        ),
       ),
     );
   }

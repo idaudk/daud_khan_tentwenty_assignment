@@ -24,13 +24,8 @@ class NavItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset(SvgAssets.dashboard),
-        // Icon(
-        //   icon,
-        //   color: isActive ? ColorManager.white : ColorManager.grey,
-        //   size: AppSize.s25.r,
-        // ),
-        Gap(AppSize.s5.h),
+        SvgPicture.asset(svgPath),
+        Gap(AppSize.s6.h),
         Text(
           text,
           style: context.textTheme.labelMedium!.copyWith(

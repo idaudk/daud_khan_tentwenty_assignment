@@ -30,6 +30,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      // DeviceOrientation.portraitUp,
+    ]);
+
     setupScrollController(context);
     BlocProvider.of<HomeCubit>(context).loadPosts();
     // SystemChrome.setPreferredOrientations([

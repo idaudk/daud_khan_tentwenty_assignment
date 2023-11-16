@@ -30,18 +30,18 @@ class BottomNav extends StatelessWidget {
               text: 'Home',
             ),
             NavItem(
-              svgPath: SvgAssets.dashboard,
+              svgPath: SvgAssets.video,
               isActive: true,
               icon: CupertinoIcons.play_rectangle_fill,
               text: 'Watch',
             ),
             NavItem(
-              svgPath: SvgAssets.dashboard,
+              svgPath: SvgAssets.media,
               icon: Icons.filter_rounded,
               text: 'Media Library',
             ),
             NavItem(
-              svgPath: SvgAssets.dashboard,
+              svgPath: SvgAssets.others,
               icon: CupertinoIcons.list_bullet,
               text: 'More',
             )

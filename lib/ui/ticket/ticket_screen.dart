@@ -1,9 +1,6 @@
 import 'package:book_my_seat/book_my_seat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movie_db_app/ui/resources/resources.dart';
 import 'package:movie_db_app/ui/widgets/gap/gap.dart';
 
@@ -15,6 +12,11 @@ class TicketScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorManager.pageBg,
       appBar: AppBar(
+          leading: IconButton(
+              icon: const Icon(CupertinoIcons.left_chevron),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           toolbarHeight: AppSize.s100.h,
           elevation: 0,
           backgroundColor: ColorManager.white,
@@ -53,7 +55,7 @@ class TicketScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                for (var i = 0; i < 9; i++)
+                for (var i = 0; i < 7; i++)
                   Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: AppSize.s20.w, vertical: AppSize.s10.h),
@@ -86,7 +88,7 @@ class TicketScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    for (var i = 0; i < 9; i++)
+                    for (var i = 0; i < 4; i++)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -127,69 +129,6 @@ class TicketScreen extends StatelessWidget {
                                     vertical: AppSize.s5.h),
                                 width: double.infinity,
                                 height: 100,
-                                child: Center(
-                                  child: SeatLayoutWidget(
-                                    onSeatStateChanged:
-                                        (rowI, colI, currentState) {},
-                                    stateModel: const SeatLayoutStateModel(
-                                        currentSeatsState: [
-                                          [
-                                            SeatState.disabled,
-                                            SeatState.selected,
-                                            SeatState.unselected,
-                                            SeatState.empty,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.sold,
-                                          ],
-                                          [
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.empty,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                          ],
-                                          [
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.empty,
-                                            SeatState.sold,
-                                            SeatState.sold,
-                                            SeatState.sold,
-                                          ],
-                                          [
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.empty,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                          ],
-                                          [
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.empty,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                            SeatState.unselected,
-                                          ],
-                                        ],
-                                        seatSvgSize: 13,
-                                        rows: 5,
-                                        cols: 7,
-                                        pathSelectedSeat: SvgAssets.active_seat,
-                                        pathDisabledSeat:
-                                            SvgAssets.unactive_seat,
-                                        pathSoldSeat: SvgAssets.unactive_seat,
-                                        pathUnSelectedSeat:
-                                            SvgAssets.unactive_seat),
-                                  ),
-                                ),
                               ),
                             )),
                           ),
