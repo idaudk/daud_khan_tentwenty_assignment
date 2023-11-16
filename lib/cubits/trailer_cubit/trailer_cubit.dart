@@ -23,12 +23,6 @@ class TrailerCubit extends Cubit<TrailerState> {
     return super.close();
   }
 
-  onEnded(){
-    youtubePlayerController!.addListener(() {
-     
-    });
-  }
-
   getTrailer({required int movieId}) async {
     emit(TrailerLoading());
     final response = await _moviesRepoImpl.getMovieTrailer(movieId: movieId);

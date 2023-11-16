@@ -125,10 +125,33 @@ class TicketScreen extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: AppSize.s20.w,
+                                    horizontal: AppSize.s5.w,
                                     vertical: AppSize.s5.h),
                                 width: double.infinity,
-                                height: 100,
+                                child: Container(
+                                    margin: EdgeInsets.only(top: AppSize.s20.h),
+                                    color: ColorManager.almostWhite,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        RowGenerator(18),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(20),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(20),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(24),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(24),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(24),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(24),
+                                        Gap(AppSize.s5.h),
+                                        RowGenerator(24),
+                                      ],
+                                    )),
                               ),
                             )),
                           ),
@@ -167,6 +190,23 @@ class TicketScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Row RowGenerator(int count) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var i = 0; i < count; i++)
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: AppSize.s1.w),
+            height: AppSize.s5.r,
+            decoration: BoxDecoration(
+                color: randomColor(),
+                borderRadius: BorderRadius.circular(AppSize.s2.r)),
+            width: AppSize.s5.r,
+          )
+      ],
     );
   }
 }

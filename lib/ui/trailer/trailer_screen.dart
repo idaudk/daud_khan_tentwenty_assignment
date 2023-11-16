@@ -37,7 +37,11 @@ class TrailerScreen extends StatelessWidget {
                 children: [
                   Center(
                       child: YoutubePlayer(
-                          controller: state.youtubePlayerController)),
+                    controller: state.youtubePlayerController,
+                    onEnded: (value) {
+                      Navigator.pop(context);
+                    },
+                  )),
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: ElevatedButton(
