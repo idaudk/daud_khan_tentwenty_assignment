@@ -22,27 +22,30 @@ class BottomNav extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(AppSize.s30.r),
                   topLeft: Radius.circular(AppSize.s30.r))),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween ,
-              children: [
-                NavItem(
-                  icon: Icons.dashboard_rounded,
-                  text: 'Home',
-                ),
-                NavItem(
-                  isActive: true,
-                  icon: CupertinoIcons.play_rectangle_fill,
-                  text: 'Watch',
-                ),
-                NavItem(
-                  icon: Icons.filter_rounded,
-                  text: 'Media Library',
-                ),
-                NavItem(
-                  icon: CupertinoIcons.list_bullet,
-                  text: 'More',
-                )
-              ]),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            NavItem(
+              svgPath: SvgAssets.dashboard,
+              icon: Icons.dashboard_rounded,
+              text: 'Home',
+            ),
+            NavItem(
+              svgPath: SvgAssets.dashboard,
+              isActive: true,
+              icon: CupertinoIcons.play_rectangle_fill,
+              text: 'Watch',
+            ),
+            NavItem(
+              svgPath: SvgAssets.dashboard,
+              icon: Icons.filter_rounded,
+              text: 'Media Library',
+            ),
+            NavItem(
+              svgPath: SvgAssets.dashboard,
+              icon: CupertinoIcons.list_bullet,
+              text: 'More',
+            )
+          ]),
         ));
   }
 }

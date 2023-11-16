@@ -79,9 +79,10 @@ class MovieDetailScreen extends StatelessWidget {
                     children: [
                       CustomImage(
                           width: double.maxFinite,
+                          height: double.infinity,
                           fit: BoxFit.cover,
                           imageUrl: BaseApiService.imageBaseUrl +
-                              movieImages.posters![0].filePath.toString()),
+                              movieImages.backdrops![0].filePath.toString()),
                       Container(
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
@@ -128,7 +129,10 @@ class MovieDetailScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.tickets);
+                                        },
                                         child: const Text('Get Tickets')),
                                   ),
                                 ],

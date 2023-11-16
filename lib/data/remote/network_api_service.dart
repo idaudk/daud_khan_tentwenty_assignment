@@ -108,13 +108,14 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future search({required String keyword}) async {
+  Future search({required String keyword, required int pageNumber}) async {
     try {
       
       final response = await _dioClient.get(
         ApiEndPoints().searchMovies,
         queryParameters: {
-          'query' : keyword
+          'query' : keyword,
+          'page': pageNumber
         }
       );
       return returnResponse(response);

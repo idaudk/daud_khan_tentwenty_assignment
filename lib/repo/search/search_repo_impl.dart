@@ -11,9 +11,9 @@ class SearchRepoImpl extends SearchRepo{
   final BaseApiService _apiService = NetworkApiService();
 
   @override
-  Future<Either<Failure, Search>> search({required String keyword}) async {
+  Future<Either<Failure, Search>> search({required String keyword, required int pageNumber} ) async {
     try { 
-      final json = await _apiService.search(keyword: keyword);
+      final json = await _apiService.search(keyword: keyword, pageNumber: pageNumber);
       print(json);
       final search = Search.fromJson(json);
       return Right(search);

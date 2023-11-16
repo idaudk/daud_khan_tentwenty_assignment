@@ -12,27 +12,15 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? height;
   final String? title;
   final Color? color;
-  final bool showActions;
-  final bool showAddressActions;
-  final bool disableBackButton;
-  final bool showFavrt;
-  final int? itemId;
   final Function()? onBack;
-  final Function()? onFvrt;
 
   final bool enableShadow;
   const SimpleAppBar({
     Key? key,
-    this.disableBackButton = false,
     this.height = AppSize.simpleAppBarheight,
     this.title,
-    this.showAddressActions = false,
     this.color,
-    this.showActions = false,
     this.enableShadow = false,
-    this.showFavrt = false,
-    this.itemId,
-    this.onFvrt,
     this.onBack,
   }) : super(key: key);
 

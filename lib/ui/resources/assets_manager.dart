@@ -21,8 +21,15 @@ class GifAssets {
 }
 
 class SvgAssets {
-  static const String google = '$SVG_PATH/google.svg';
-  static const String facebook = '$SVG_PATH/facebook.svg';
-  static const String instragram = '$SVG_PATH/instagram.svg';
-  static const String apple = '$SVG_PATH/apple.svg';
+  // static const String google = '$SVG_PATH/google.svg';
+  // static const String facebook = '$SVG_PATH/facebook.svg';
+  // static const String instragram = '$SVG_PATH/instagram.svg';
+  // static const String apple = '$SVG_PATH/apple.svg';
+  static const String seat = '$SVG_PATH/seat.svg';
+  static const String active_seat = '$SVG_PATH/active_seat.svg';
+  static const String unactive_seat = '$SVG_PATH/unactive_seat.svg';
+  static const String dashboard = '$SVG_PATH/dashboard.svg';
+  static const String video = '$SVG_PATH/video.svg';
+  static const String media = '$SVG_PATH/media.svg';
+  static const String others = '$SVG_PATH/others.svg';
 }

@@ -13,7 +13,6 @@ import 'package:movie_db_app/ui/resources/values_manager.dart';
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TextEditingController textEditingController;
   final double? height;
-  final String? title;
   final Color? color;
   final bool showActions;
   final bool disableBackButton;
@@ -25,7 +24,6 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.disableBackButton = false,
     this.height = AppSize.searchAppBarheight,
-    this.title,
     this.color,
     this.showActions = false,
     this.enableShadow = false,
@@ -58,8 +56,12 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
             });
           },
           textInputAction: TextInputAction.search,
-          onFieldSubmitted: (v){
-            Navigator.pushNamed(context, Routes.search);
+          onFieldSubmitted: (v) {
+            if (context.read<SearchCubit>().searchCompleted) {
+              if (v.isNotEmpty) {
+                Navigator.pushNamed(context, Routes.search, arguments: v);
+              }
+            }
           },
           decoration: InputDecoration(
               hintText: 'TV Show, movies and more',
