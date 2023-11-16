@@ -30,11 +30,7 @@ class TrailerCubit extends Cubit<TrailerState> {
       emit(TrailerFailed());
     }, (r) async {
       print(BaseApiService.trailerBaseUrl + r.results![0].key.toString());
-      // videoController = VideoPlayerController.networkUrl(
-      //     Uri.parse('https://www.youtube.com/watch?v=PCDRFz9jhLc'));
-      // print('Video Metadata: ${videoController!.value}');
-      // await videoController!.initialize();
-      // print('Video Metadata: ${videoController!.value}');
+ 
 
       youtubePlayerController = YoutubePlayerController(
           initialVideoId: r.results![0].key.toString(),

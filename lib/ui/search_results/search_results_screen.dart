@@ -39,6 +39,7 @@ class SearchResultScreen extends StatelessWidget {
       backgroundColor: ColorManager.pageBg,
       // appBar:
       body: Stack(
+        fit: StackFit.expand,
         children: [
           BlocBuilder<SearchResultsCubit, SearchResultsState>(
             builder: (context, state) {
@@ -46,10 +47,12 @@ class SearchResultScreen extends StatelessWidget {
                 return _loadingIndicator();
               }
               if (state is SearchResultsFailed) {
-                return const Center(
-                  child: Icon(
-                    CupertinoIcons.xmark_octagon,
-                    color: ColorManager.error,
+                return Expanded(
+                  child: const Center(
+                    child: Icon(
+                      CupertinoIcons.xmark_octagon,
+                      color: ColorManager.error,
+                    ),
                   ),
                 );
               }
@@ -70,7 +73,6 @@ class SearchResultScreen extends StatelessWidget {
                     right: AppSize.s24,
                     top: AppSize.s130.h,
                     bottom: AppSize.s130.h),
-                // itemCount: results.length + (isLoading ? 1 : 0),
                 itemCount: results.length,
                 shrinkWrap: true,
                 controller: scrollController,

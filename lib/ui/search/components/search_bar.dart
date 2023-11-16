@@ -63,6 +63,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
               }
             }
           },
+          style: context.textTheme.bodyMedium,
           decoration: InputDecoration(
               hintText: 'TV Show, movies and more',
               suffixIcon: IconButton(
